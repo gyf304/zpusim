@@ -28,13 +28,13 @@ inline static zpuv zpu_mem_read(zpuvm* vm, uintzpu_t addr) {
     for (uintzpu_t i = 0; i < vm->blocks; i++) {
         zpuvm_memblock* m = vm->memblock + i;
         if (addr >= m->base && addr - m->base < m->size) {
-            return *((zpuv*)(m->mem + (addr - m->base)));
+            return *((zpuv*)((char*)m->mem + (addr - m->base)));
         }
     }
     return h2zpu(0);
     #endif
     #ifdef ZPU_NAIVE_MEM
-    return *((zpuv*)(vm->memblock->mem + addr));
+    return *((zpuv*)((char*)vm->memblock->mem + addr));
     #endif
 }
 
@@ -42,7 +42,7 @@ inline static uint8_t zpu_mem_read_opcode(zpuvm* vm, uintzpu_t addr) {
     for (uintzpu_t i = 0; i < vm->blocks; i++) {
         zpuvm_memblock* m = vm->memblock + i;
         if (addr >= m->base && addr - m->base < m->size) {
-            return *((uint8_t*)(m->mem + (addr - m->base)));
+            return *((uint8_t*)((char*)m->mem + (addr - m->base)));
         }
     }
     return 0;
@@ -52,7 +52,7 @@ inline static void zpu_mem_set(zpuvm* vm, uintzpu_t addr, zpuv v) {
     for (uintzpu_t i = 0; i < vm->blocks; i++) {
         zpuvm_memblock* m = vm->memblock + i;
         if (addr >= m->base && addr - m->base < m->size) {
-            *((zpuv*)(m->mem + (addr - m->base))) = v;
+            *((zpuv*)((char*)m->mem + (addr - m->base))) = v;
             return;
         }
     }

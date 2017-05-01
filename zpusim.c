@@ -73,15 +73,14 @@ int main(int argc, char *argv[]) {
         #endif
         printf("ZPUSIM: %zu bit %s ZPU, %u bytes of mem", ZPU_WORD_SIZE * 8, endianess, main_mem_size);
         if (print_stack_size) printf(", printing upto %d deep in stack", print_stack_size);
-        if (peek) printf(", poking 0x%08x", peek_addr);
+        if (peek) printf(", peeking 0x%08x", peek_addr);
         printf(".\n");
     }
     zpuvm_memblock_init(&(memblock[0]), mem[0], 0x0, main_mem_size);
     zpuvm_init(&vm, memblock, 1, 0, main_mem_size);
     size_t cycles = 1;
     while(1) {
-        unsigned char op = *((unsigned char*)(mem[0] + vm.pc));
-        uintzpu_t v = zpu2h(*((zpuv*)(mem[0] + 0x8000)));
+        unsigned char op = *((unsigned char*)((char*)mem[0] + vm.pc));
         if (!silent) {
             printf("cycle         %10zu    ", cycles);
             printf("opcode          0x%02x\n", op);
@@ -93,14 +92,14 @@ int main(int argc, char *argv[]) {
             printf("pc_after      0x%08x    ", vm.pc);
             printf("sp_after    %08x \n", vm.sp);
             if (peek) {
-                printf("peek_after    0x%08x <= 0x%08x\n", peek_addr, zpu2h(*((zpuv*)(mem[0] + peek_addr))));
+                printf("peek_after    0x%08x <= 0x%08x\n", peek_addr, zpu2h(*((zpuv*)((char*)mem[0] + peek_addr))));
             }
             if (print_stack_size) {
                 uintzpu_t sp = vm.sp;
                 uintzpu_t sc = print_stack_size;
                 printf("STACK LAYOUT (After execution):\n");
                 while(sc && sp <= main_mem_size - ZPU_WORD_SIZE) {
-                    uintzpu_t st = zpu2h(*((zpuv*)(mem[0] + sp)));
+                    uintzpu_t st = zpu2h(*((zpuv*)((char*)mem[0] + sp)));
                     printf("0x%08x <= 0x%08x\n", sp, st);
                     sp += ZPU_WORD_SIZE;
                     sc--;
