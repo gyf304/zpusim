@@ -1,0 +1,11 @@
+package "zpusim"
+version "0.0.1"
+purpose "Simulates zpu."
+description "Another zpu simulator"
+
+option "filename" f "Binary file to execute" string required
+option "mem" m "Memory size in bytes, if less than practical will use default value" optional long
+option "stack" s "How deep should zpusim print stack." optional long
+option "cycles" c "How many cycles should zpusim execute." optional long
+option "peek" p "A memory address zpusim checks for each cycle. Common value is 0x8000." optional longlong
+option "silent" S "Suppresses all output. Useful for profiling. Ignored if cycles not set." flag off
