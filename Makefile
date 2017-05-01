@@ -1,6 +1,6 @@
 UNAME := $(shell uname)
 CC=gcc
-CFLAGS=-std=c99 -Wall -O3
+CFLAGS=-std=gnu99 -Wall -O3
 ifeq ($(UNAME), Darwin)
 	CFLAGS += -I osxinclude
 endif
