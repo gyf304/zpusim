@@ -62,8 +62,12 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Mem allocation error\n");
         return -1;
     }
-    (void) fread(mem[0], 1, length, f);
+    size_t read_bytes = fread(mem[0], 1, length, f);
     fclose(f);
+    if (read_bytes != length) {
+        fprintf(stderr, "File read error \n");
+        return -1;
+    }
     if (!silent) {
         #ifdef ZPU_LITTLE_ENDIAN
         const char endianess[] = "little endian";
