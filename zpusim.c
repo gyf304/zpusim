@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Mem allocation error\n");
         return -1;
     }
-    fread(mem[0], 1, length, f);
+    (void) fread(mem[0], 1, length, f);
     fclose(f);
     if (!silent) {
         #ifdef ZPU_LITTLE_ENDIAN
