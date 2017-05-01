@@ -1,7 +1,6 @@
 #ifndef _ZPU_VM_H
 #define _ZPU_VM_H
 
-#include "opcode.h"
 #include <stdint.h>
 #include <stdlib.h>
 #include <endian.h>
