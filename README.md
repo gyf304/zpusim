@@ -9,13 +9,15 @@ Another ZPU Simulator
     -V, --version          Print version and exit
     -f, --filename=STRING  Binary file to execute
     -m, --mem=LONG         Memory size in bytes, if less than practical will use
-                             default value
+                            default value
     -s, --stack=LONG       How deep should zpusim print stack.
-    -c, --cycles=LONG      How many cycles should zpusim execute.
+    -c, --cycles=LONG      How many cycles should zpusim execute. If this is not
+                            set stepping will be enabled.
     -p, --peek=LONGLONG    A memory address zpusim checks for each cycle. Common
-                             value is 0x8000.
+                            value is 0x8000.
     -S, --silent           Suppresses all output. Useful for profiling. Ignored
-                             if cycles not set.  (default=off)
+                            if cycles not set.  (default=off)
+
 # Building
 ## Required Tools
  - C compiler
